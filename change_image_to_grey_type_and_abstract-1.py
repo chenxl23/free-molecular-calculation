@@ -30,7 +30,8 @@ def batch_image_subtraction_with_colormap(background_path, input_folder, output_
             input_array = rgb_to_grayscale(np.array(input_image))  # 使用加权平均法转为灰度图
 
             # 执行减法
-            difference = np.clip(input_array - background_array, 0, 255)  # 保证像素值范围在0-255
+            #difference = np.clip(input_array - background_array, 0, 255)  # 保证像素值范围在0-255 #TODO 这里可以设置为本底-批量图片
+            difference = np.clip(background_array - input_array, 0, 255)
             difference_normalized = difference / 255.0  # 归一化到 [0, 1]
 
             # 应用颜色映射
@@ -46,9 +47,9 @@ def batch_image_subtraction_with_colormap(background_path, input_folder, output_
     print(f"所有图片已处理完成，结果保存在：{output_folder}")
 
 # 示例用法
-background_path = r'C:\Users\za\Desktop\AVIZO project\tuiliqi scan 10pa parallel\change name\0.0.tiff'  # 本底图片路径
-input_folder = r'C:\Users\za\Desktop\AVIZO project\tuiliqi scan 10pa parallel\change name'  # 输入图片文件夹路径
-output_folder = r'C:\Users\za\Desktop\AVIZO project\tuiliqi scan 10pa parallel\change name\Processed'  # 输出图片文件夹路径
+background_path = r'E:\数据\20241124\大气下的羽流形状\0sccm.tiff'  # 本底图片路径
+input_folder = r'E:\数据\20241124\大气下的羽流形状'  # 输入图片文件夹路径
+output_folder = r'E:\数据\20241124\大气下的羽流形状\Processed'  # 输出图片文件夹路径
 
 batch_image_subtraction_with_colormap(background_path, input_folder, output_folder)
 
